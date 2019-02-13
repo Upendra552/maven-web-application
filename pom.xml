@@ -96,7 +96,7 @@
         <id>jfrog</id>
         <name>snapshots</name>
         <url>http://13.233.142.15:8081/artifactory/maven-snapshots</url>
-    <snapshotRepository>
+    </snapshotRepository>
 	</distributionManagement>
 	
 	<build>
