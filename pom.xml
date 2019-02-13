@@ -92,7 +92,7 @@
         <url>http://13.233.142.15:8081/artifactory/maven-release</url>
     </repository>
 	    <snapshotRepository>
-	      <<repository>
+	      
         <id>jfrog</id>
         <name>snapshots</name>
         <url>http://13.233.142.15:8081/artifactory/maven-snapshots</url>
