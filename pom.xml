@@ -87,15 +87,15 @@
 	
 	<distributionManagement>
 	    <repository>
-        <id>jfrog</id>
+        <id>nexus</id>
         <name>maven release</name>
-        <url>http://13.233.142.15:8081/artifactory/maven-release</url>
+        <url>http://13.233.148.159:8081/repository/maven-releases/</url>
     </repository>
 	    <snapshotRepository>
 	      
-        <id>jfrog</id>
+        <id>nexus</id>
         <name>snapshots</name>
-        <url>http://13.233.142.15:8081/artifactory/maven-snapshots</url>
+        <url>http://13.233.148.159:8081/repository/maven-snapshots/</url>
     </snapshotRepository>
 	</distributionManagement>
 	
