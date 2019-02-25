@@ -1,66 +1,64 @@
-#!groovy
-properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '3'))])
+node('master'){
 
-
-node('slaves'){
-   cleanWs notFailBuild: true
-    /*
- stage('Chekout the code')   {
-    git branch: 'development', credentialsId: '7f781337-4f99-4b42-84c9-e504246c0426', url: 'https://github.com/MithunTechnologiesDevOps/maven-web-application.git' 
- }
- 
- 
- stage('Run Unit Test cases'){
+  def mvnHome = tool name: 'Maven', type: 'maven'
+  def mvnBIN= "${mvnHome}/bin"
+  cleanWs notFailBuild: true
+  currentBuild.result = "SUCCESS"
+  
+  
+  
+  stage('checkout'){
+ git branch: 'development', credentialsId: 'e43d7eb1-9665-452e-8ead-52821a402d9f', url: 'https://github.com/Upendra552/maven-web-application.git'
+  }
+  stage('build'){
      if(isUnix()){
-      sh 'mvn test'
-     }
-     else{
-        bat 'mvn test' 
-     }
- }
- stage('build'){
+     sh "${mvnBIN}/mvn clean package sonar:sonar"
+      }
+      else{
+       bat "${mvnHome}/bin/mvn clean package"   
+      }
+   }
+   /*
+   stage('sonarqubereport'){
      if(isUnix()){
-      sh 'mvn clean package'
-     }
-     else{
-        bat 'mvn clean package' 
-     }
- }
- 
-  stage('SonarQube Report'){
+     sh '${mvnBIN}/mvn sonar:sonar'
+      }
+      else{
+       bat 'mvn sonar:sonar'   
+      }
+  }
+  */
+  
+  stage('DeployAppIntoTomcat'){
      if(isUnix()){
-      sh 'mvn sonar:sonar'
-     }
-     else{
-        bat 'mvn sonar:sonar' 
-     }
- }
- 
- stage('Upload Artifacts'){
-     if(isUnix()){
-      sh 'mvn deploy'
-     }
-     else{
-        bat 'mvn deploy' 
-     }
- }
- 
- stage('Deploy into Tomcat Server'){
-      
-     sh 'echo "Deploymnet started"'
-     sh 'cp $WORKSPACE/target/*.war /Users/bhaskarreddyl/BhaskarReddyL/Softwares/Running/apache-tomcat-9.0.14/mithunapps/'
-     sh 'echo "deployment over"'
-      
+	  sh 'echo "Starting deployment"'
+      sh 'scp $WORKSPACE/target/*.war /opt/apache-tomcat-9.0.14/webapps'
+      sh 'echo "Deployment done successfully"'
+	  }
+      else{
+       bat 'echo windows'   
+      }
+  }
+  stage('upload nexus'){
+      if (isUnix()){
+          sh 'mvn deploy'
+      }else{
+          bat 'mvn deploy'
+      }
         
-    }
+      
+  }
+  
+ 
+ stage('emailnotification'){
+  	      mail  to: 'm.upendra14@gmail.com', 
+		        cc: 'm.upendra14@gmail.com', 
+				
+				from: 'm.upendra14@gmail.com', 
+				replyTo: 'm.upendra14@gmail.com',             
+				subject: 'Project build Succeed',
+				body: 'Buid Done'
+  
     
-    stage('Notification'){
-      mail bcc: 'devopstrainingblr@gmail.com', body: '''Buid Done
-
-Regards,
-Mithun Technologies.''', cc: 'devopstrainingblr@gmail.com', from: '', replyTo: '', subject: 'Using Pipeline Script Email Notification', to: 'devopstrainingblr@gmail.com'  
-        
-    }
-    
-    */
+  	   }
 }
