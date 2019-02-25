@@ -89,13 +89,13 @@
 	    <repository>
         <id>nexus</id>
         <name>maven release</name>
-        <url>http://13.233.148.159:8081/artifactory/maven-release/</url>
+        <url>http://13.234.34.85:8081/artifactory/maven-release/</url>
     </repository>
 	    <snapshotRepository>
 	      
         <id>nexus</id>
         <name>snapshots</name>
-        <url>http://13.233.148.159:8081/artifactory/maven-snapshots/</url>
+        <url>http://13.234.34.85:8081/artifactory/maven-snapshots/</url>
     </snapshotRepository>
 	</distributionManagement>
 	
